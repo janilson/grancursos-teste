@@ -1,0 +1,1752 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "MAIS CIDADÃO - API",
+    "description": "Esta é a pagina de serviços disponibilizados do  MAIS CIDADÃO",
+    "contact": {
+      "email": "thales.martins@basis.com"
+    },
+    "license": {
+      "name": "COMERCIAL"
+    },
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Adesão",
+      "description": "métodos disponíveis na adesão"
+    },
+    {
+      "name": "Coorporativo",
+      "description": "métodos para o ambiente coorporativo"
+    },
+    {
+      "name": "Autenticação",
+      "description": "métodos de autenticação do sistema"
+    },
+    {
+      "name": "Inscrição",
+      "description": "métodos disponíveis para a inscrição"
+    },
+    {
+      "name": "Administrativo",
+      "description": "métodos disponíveis para o administrativo"
+    }
+  ],
+  "paths": {
+    "/adesao": {
+      "post": {
+        "tags": [
+          "Adesão"
+        ],
+        "summary": "Criar nova adesão ao programa mais cidadão",
+        "requestBody": {
+          "description": "Dados necessários para criar uma nova adesão",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Adesao"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RetornoAdesao"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {}
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Adesão"
+        ],
+        "summary": "Busca todas as adesoes cadastradas",
+        "parameters": [
+          {
+            "name": "usuario_logado",
+            "in": "query",
+            "description": "Busca as adesões do usuário logado",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "sem_inscricao",
+            "in": "query",
+            "description": "Busca as adesões que não tem inscrição",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RetornoListaAdesao"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+    "/adesao/{adesao}": {
+      "get": {
+        "tags": [
+          "Adesão"
+        ],
+        "summary": "Busca uma adesão cadastrada",
+        "parameters": [
+          {
+            "name": "adesao",
+            "in": "path",
+            "description": "ID da adesão",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RetornoAdesao"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/adesao/{adesao}/pdf": {
+      "get": {
+        "tags": [
+          "Adesão"
+        ],
+        "summary": "Gerar o termo de adesão e retorna um PDF",
+        "parameters": [
+          {
+            "name": "adesao",
+            "in": "path",
+            "description": "ID da adesão",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A PDF file",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/uf": {
+      "get": {
+        "tags": [
+          "Coorporativo"
+        ],
+        "summary": "Busca as Unidades Federativas do Brasil",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Uf"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/uf/{uf}/municipio": {
+      "get": {
+        "tags": [
+          "Coorporativo"
+        ],
+        "summary": "Busca os municípios de uma determinada unidade federativa",
+        "parameters": [
+          {
+            "name": "uf",
+            "in": "path",
+            "description": "ID da uf",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Municipio"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/municipio/{co_ibge}/prefeito-vigente/": {
+      "get": {
+        "tags": [
+          "Coorporativo"
+        ],
+        "summary": "Busca os municípios de uma determinada unidade federativa",
+        "parameters": [
+          {
+            "name": "co_ibge",
+            "in": "path",
+            "description": "Código do IBGE do município",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Prefeito"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Efetua login e gera um token",
+        "requestBody": {
+          "description": "Dados necessários para efetuar login",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Autenticacao"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Token"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/recuperar-senha": {
+      "post": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Gerar uma nova senha para o usuário é envia por e-mail",
+        "requestBody": {
+          "description": "Dados necessários para recuperar senha",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecuperarSenha"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Efetua logout da aplicação e inclui o token na black list",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Exibe as informações do usuário, de acordo com o tokem informado",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+    "/adesao/{adesao}/envio/": {
+      "post": {
+        "tags": [
+          "Inscrição"
+        ],
+        "summary": "Envia a inscrição do programa mais cidadão",
+        "parameters": [
+          {
+            "name": "adesao",
+            "in": "path",
+            "description": "Código da adesão",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+    "/adesao/{adesao}/grupo/": {
+      "post": {
+        "tags": [
+          "Inscrição"
+        ],
+        "summary": "Inicia uma inscrição a partir de uma adesão",
+        "parameters": [
+          {
+            "name": "adesao",
+            "in": "path",
+            "description": "Código da adesão",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RetornoListaAdesao"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+    "/adesao/{adesao}/grupo/{grupo}/pre-requisito": {
+      "post": {
+        "tags": [
+          "Inscrição"
+        ],
+        "summary": "Salva os pré-requisitos",
+        "parameters": [
+          {
+            "name": "adesao",
+            "in": "path",
+            "description": "Código da adesão",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "grupo",
+            "in": "path",
+            "description": "Código do grupo",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Itens da resposta para serem atualizados",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestResposta"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RetornoListaAdesao"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+    "/adesao/{adesao}/grupo/{grupo}": {
+      "put": {
+        "tags": [
+          "Inscrição"
+        ],
+        "summary": "Atualiza as respostas de uma inscrição de um determinado grupo",
+        "parameters": [
+          {
+            "name": "adesao",
+            "in": "path",
+            "description": "Código da adesão",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "grupo",
+            "in": "path",
+            "description": "Código do grupo",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Itens da resposta para serem atualizados",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestResposta"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RetornoListaAdesao"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+    "/adesao/{adesao}/historico": {
+      "get": {
+        "tags": [
+          "Inscrição"
+        ],
+        "summary": "Busca todo o histórico das respostas relacionadas a adesão",
+        "parameters": [
+          {
+            "name": "adesao",
+            "in": "path",
+            "description": "Código da adesão",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RetornoHistorico"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+    "/arquivo/{arquivo}": {
+      "get": {
+        "tags": [
+          "Inscrição"
+        ],
+        "summary": "Busca todo o histórico das respostas relacionadas a adesão",
+        "parameters": [
+          {
+            "name": "arquivo",
+            "in": "path",
+            "description": "Código do arquivo",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "image/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "application/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "text/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+    "/inscricao/{adesao}/resumo": {
+      "get": {
+        "tags": [
+          "Inscrição"
+        ],
+        "summary": "Mostra o resumo de uma adesão e retorna um PDF",
+        "parameters": [
+          {
+            "name": "adesao",
+            "in": "path",
+            "description": "ID da adesão",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A PDF file",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/grupo": {
+      "get": {
+        "tags": [
+          "Inscrição"
+        ],
+        "summary": "Busca todos os grupos e perguntas relacionadas ao grupo",
+        "parameters": [
+          {
+            "name": "co_adesao",
+            "in": "query",
+            "description": "código da adesão",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RetornoListaGrupo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+    "/classificacao": {
+      "get": {
+        "tags": [
+          "Administrativo"
+        ],
+        "summary": "Busca todos as adesões classificadas por grupo",
+        "parameters": [
+          {
+            "name": "tp_grupo_municipio",
+            "in": "query",
+            "description": "Grupo do município",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "nu_posicao",
+            "in": "query",
+            "description": "Posição(Rank) da adesão",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "nu_classificacao",
+            "in": "query",
+            "description": "Classificação(Rank) da adesão",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RetornoListaClassificacao"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+    "/classificacao/adesao/{adesao}": {
+      "get": {
+        "tags": [
+          "Administrativo"
+        ],
+        "summary": "Busca a adesão classificada",
+        "parameters": [
+          {
+            "name": "adesao",
+            "in": "path",
+            "description": "Código da adesão",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Classificacao"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+    "/classificacao/": {
+      "post": {
+        "tags": [
+          "Administrativo"
+        ],
+        "summary": "Envia todas as classificações programa mais cidadão",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Uf": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "co_uf": {
+              "type": "integer"
+            },
+            "no_uf": {
+              "type": "string"
+            },
+            "sg_uf": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Municipio": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "co_municipio": {
+              "type": "integer"
+            },
+            "no_municipio": {
+              "type": "string"
+            },
+            "co_uf": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "Prefeito": {
+        "type": "object",
+        "properties": {
+          "co_uf": {
+            "type": "string"
+          },
+          "co_municipio_ibge": {
+            "type": "integer"
+          },
+          "no_cidade": {
+            "type": "string"
+          },
+          "no_dirigente": {
+            "type": "string"
+          },
+          "dt_inicio_mandato": {
+            "type": "string"
+          },
+          "dt_fim_mandato": {
+            "type": "string"
+          }
+        }
+      },
+      "Adesao": {
+        "properties": {
+          "co_adesao": {
+            "type": "integer"
+          },
+          "no_prefeito": {
+            "type": "string"
+          },
+          "co_municipio": {
+            "type": "integer"
+          },
+          "no_uf": {
+            "type": "string"
+          },
+          "no_regiao": {
+            "type": "string"
+          },
+          "no_municipio": {
+            "type": "string"
+          },
+          "tp_grupo_municipio": {
+            "type": "integer"
+          },
+          "nu_populacao": {
+            "type": "integer"
+          },
+          "nu_pontuacao_total": {
+            "type": "integer"
+          },
+          "existe_envio": {
+            "type": "boolean"
+          },
+          "nu_cpf_envio": {
+            "type": "string"
+          },
+          "no_usuario_envio": {
+            "type": "string"
+          },
+          "ds_email_envio": {
+            "type": "string"
+          },
+          "dh_envio": {
+            "type": "string"
+          },
+          "servidores": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "co_adesao_servidor": {
+                  "type": "integer"
+                },
+                "co_adesao": {
+                  "type": "integer"
+                },
+                "nu_cpf": {
+                  "type": "string"
+                },
+                "no_servidor": {
+                  "type": "string"
+                },
+                "ds_email": {
+                  "type": "string"
+                },
+                "nu_telefone": {
+                  "type": "string"
+                },
+                "no_funcao": {
+                  "type": "string"
+                },
+                "no_lotacao": {
+                  "type": "string"
+                },
+                "st_coordenador": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "RetornoListaAdesao": {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "co_adesao": {
+                  "type": "integer"
+                },
+                "no_prefeito": {
+                  "type": "string"
+                },
+                "co_municipio": {
+                  "type": "integer"
+                },
+                "no_uf": {
+                  "type": "string"
+                },
+                "no_regiao": {
+                  "type": "string"
+                },
+                "no_municipio": {
+                  "type": "string"
+                },
+                "tp_grupo_municipio": {
+                  "type": "integer"
+                },
+                "nu_populacao": {
+                  "type": "integer"
+                },
+                "nu_pontuacao_total": {
+                  "type": "integer"
+                },
+                "existe_envio": {
+                  "type": "boolean"
+                },
+                "ds_situacao": {
+                  "type": "string"
+                },
+                "nu_cpf_envio": {
+                  "type": "string"
+                },
+                "no_usuario_envio": {
+                  "type": "string"
+                },
+                "ds_email_envio": {
+                  "type": "string"
+                },
+                "dh_envio": {
+                  "type": "string"
+                },
+                "has_pre_requisito": {
+                  "type": "boolean"
+                },
+                "pre_requisito_arquivo": {
+                  "type": "object",
+                  "properties": {
+                    "co_arquivo": {
+                      "type": "integer"
+                    },
+                    "no_arquivo": {
+                      "type": "string"
+                    },
+                    "no_extensao": {
+                      "type": "string"
+                    },
+                    "no_mime_type": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "servidores": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "co_adesao_servidor": {
+                        "type": "integer"
+                      },
+                      "co_adesao": {
+                        "type": "integer"
+                      },
+                      "nu_cpf": {
+                        "type": "string"
+                      },
+                      "no_servidor": {
+                        "type": "string"
+                      },
+                      "ds_email": {
+                        "type": "string"
+                      },
+                      "nu_telefone": {
+                        "type": "string"
+                      },
+                      "no_funcao": {
+                        "type": "string"
+                      },
+                      "no_lotacao": {
+                        "type": "string"
+                      },
+                      "st_coordenador": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "RetornoAdesao": {
+        "properties": {
+          "data": {
+            "properties": {
+              "co_adesao": {
+                "type": "integer"
+              },
+              "no_prefeito": {
+                "type": "string"
+              },
+              "co_municipio": {
+                "type": "integer"
+              },
+              "no_uf": {
+                "type": "string"
+              },
+              "no_regiao": {
+                "type": "string"
+              },
+              "no_municipio": {
+                "type": "string"
+              },
+              "tp_grupo_municipio": {
+                "type": "integer"
+              },
+              "nu_populacao": {
+                "type": "integer"
+              },
+              "nu_pontuacao_total": {
+                "type": "integer"
+              },
+              "existe_envio": {
+                "type": "boolean"
+              },
+              "ds_situacao": {
+                "type": "string"
+              },
+              "nu_cpf_envio": {
+                "type": "string"
+              },
+              "no_usuario_envio": {
+                "type": "string"
+              },
+              "ds_email_envio": {
+                "type": "string"
+              },
+              "dh_envio": {
+                "type": "string"
+              },
+              "has_pre_requisito": {
+                "type": "boolean"
+              },
+              "pre_requisito_arquivo": {
+                "type": "object",
+                "properties": {
+                  "co_arquivo": {
+                    "type": "integer"
+                  },
+                  "no_arquivo": {
+                    "type": "string"
+                  },
+                  "no_extensao": {
+                    "type": "string"
+                  },
+                  "no_mime_type": {
+                    "type": "string"
+                  }
+                }
+              },
+              "servidores": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "co_adesao_servidor": {
+                      "type": "integer"
+                    },
+                    "co_adesao": {
+                      "type": "integer"
+                    },
+                    "nu_cpf": {
+                      "type": "string"
+                    },
+                    "no_servidor": {
+                      "type": "string"
+                    },
+                    "ds_email": {
+                      "type": "string"
+                    },
+                    "nu_telefone": {
+                      "type": "string"
+                    },
+                    "no_funcao": {
+                      "type": "string"
+                    },
+                    "no_lotacao": {
+                      "type": "string"
+                    },
+                    "st_coordenador": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Usuario": {
+        "type": "object",
+        "properties": {
+          "no_usuario": {
+            "type": "string"
+          },
+          "nu_cpf": {
+            "type": "string"
+          },
+          "ds_email": {
+            "type": "string"
+          },
+          "tp_perfil": {
+            "type": "string"
+          }
+        }
+      },
+      "Autenticacao": {
+        "required": [
+          "nu_cpf",
+          "ds_senha"
+        ],
+        "type": "object",
+        "properties": {
+          "nu_cpf": {
+            "type": "string",
+            "example": "00000000001"
+          },
+          "ds_senha": {
+            "type": "string",
+            "example": "password"
+          }
+        }
+      },
+      "RecuperarSenha": {
+        "required": [
+          "nu_cpf",
+          "ds_email"
+        ],
+        "type": "object",
+        "properties": {
+          "nu_cpf": {
+            "type": "string",
+            "example": "00000000001"
+          },
+          "ds_senha": {
+            "type": "string",
+            "example": "teste@teste.com"
+          }
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Token": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string"
+          },
+          "token_type": {
+            "type": "string"
+          },
+          "expires_in": {
+            "type": "string"
+          }
+        }
+      },
+      "RequestResposta": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "co_formulario_resposta": {
+              "type": "integer"
+            },
+            "st_resposta": {
+              "type": "string",
+              "default": "N"
+            }
+          }
+        }
+      },
+      "RetornoListaGrupo": {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "co_grupo": {
+                  "type": "integer"
+                },
+                "ds_grupo": {
+                  "type": "string"
+                },
+                "nu_pontuacao_total": {
+                  "type": "integer"
+                },
+                "itens": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "co_formulario_item_inscricao": {
+                        "type": "integer"
+                      },
+                      "ds_formulario_item_inscricao": {
+                        "type": "string"
+                      },
+                      "nu_pontuacao": {
+                        "type": "integer"
+                      },
+                      "pergunta": {
+                        "type": "object",
+                        "properties": {
+                          "co_pergunta": {
+                            "type": "integer"
+                          },
+                          "ds_pergunta": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "co_formulario_resposta": {
+                        "type": "integer"
+                      },
+                      "st_resposta": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "RetornoHistorico": {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "co_resposta": {
+                  "type": "integer"
+                },
+                "dh_resposta": {
+                  "type": "string"
+                },
+                "co_usuario": {
+                  "type": "integer"
+                },
+                "nu_cpf": {
+                  "type": "string"
+                },
+                "no_usuario": {
+                  "type": "string"
+                },
+                "co_grupo": {
+                  "type": "integer"
+                },
+                "ds_grupo": {
+                  "type": "string"
+                },
+                "ds_item": {
+                  "type": "string"
+                },
+                "ds_item_pai": {
+                  "type": "string"
+                },
+                "co_formulario_resposta": {
+                  "type": "integer"
+                },
+                "st_resposta_antiga": {
+                  "type": "boolean"
+                },
+                "st_resposta_atual": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      },
+      "RetornoListaClassificacao": {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "co_adesao": {
+                  "type": "integer"
+                },
+                "no_municipio": {
+                  "type": "string"
+                },
+                "ds_grupo_municipio": {
+                  "type": "string"
+                },
+                "sg_uf": {
+                  "type": "string"
+                },
+                "nu_populacao": {
+                  "type": "integer"
+                },
+                "nu_pontuacao_total": {
+                  "type": "integer"
+                },
+                "nu_classificacao": {
+                  "type": "integer"
+                },
+                "nu_posicao": {
+                  "type": "integer"
+                },
+                "nu_cpf_envio": {
+                  "type": "string"
+                },
+                "no_usuario_envio": {
+                  "type": "string"
+                },
+                "ds_email_envio": {
+                  "type": "string"
+                },
+                "dh_envio": {
+                  "type": "string"
+                },
+                "grupos": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "co_grupo": {
+                        "type": "integer"
+                      },
+                      "ds_grupo": {
+                        "type": "string"
+                      },
+                      "nu_pontuacao_total": {
+                        "type": "integer"
+                      },
+                      "itens": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "co_formulario_item_inscricao": {
+                              "type": "integer"
+                            },
+                            "ds_formulario_item_inscricao": {
+                              "type": "string"
+                            },
+                            "nu_pontuacao": {
+                              "type": "integer"
+                            },
+                            "co_formulario_item_insc_pai": {
+                              "type": "integer"
+                            },
+                            "tp_formulario_item_inscricao": {
+                              "type": "string"
+                            },
+                            "nu_ordem": {
+                              "type": "integer"
+                            },
+                            "st_resposta": {
+                              "type": "boolean"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "servidores": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "co_adesao_servidor": {
+                        "type": "integer"
+                      },
+                      "co_adesao": {
+                        "type": "integer"
+                      },
+                      "nu_cpf": {
+                        "type": "string"
+                      },
+                      "no_servidor": {
+                        "type": "string"
+                      },
+                      "ds_email": {
+                        "type": "string"
+                      },
+                      "nu_telefone": {
+                        "type": "string"
+                      },
+                      "no_funcao": {
+                        "type": "string"
+                      },
+                      "no_lotacao": {
+                        "type": "string"
+                      },
+                      "st_coordenador": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Classificacao": {
+        "type": "object",
+        "properties": {
+          "co_adesao": {
+            "type": "integer"
+          },
+          "no_municipio": {
+            "type": "string"
+          },
+          "ds_grupo_municipio": {
+            "type": "string"
+          },
+          "sg_uf": {
+            "type": "string"
+          },
+          "nu_populacao": {
+            "type": "integer"
+          },
+          "nu_pontuacao_total": {
+            "type": "integer"
+          },
+          "nu_classificacao": {
+            "type": "integer"
+          },
+          "nu_posicao": {
+            "type": "integer"
+          },
+          "nu_cpf_envio": {
+            "type": "string"
+          },
+          "no_usuario_envio": {
+            "type": "string"
+          },
+          "ds_email_envio": {
+            "type": "string"
+          },
+          "dh_envio": {
+            "type": "string"
+          },
+          "grupos": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "co_grupo": {
+                  "type": "integer"
+                },
+                "ds_grupo": {
+                  "type": "string"
+                },
+                "nu_pontuacao_total": {
+                  "type": "integer"
+                },
+                "itens": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "co_formulario_item_inscricao": {
+                        "type": "integer"
+                      },
+                      "ds_formulario_item_inscricao": {
+                        "type": "string"
+                      },
+                      "nu_pontuacao": {
+                        "type": "integer"
+                      },
+                      "co_formulario_item_insc_pai": {
+                        "type": "integer"
+                      },
+                      "tp_formulario_item_inscricao": {
+                        "type": "string"
+                      },
+                      "nu_ordem": {
+                        "type": "integer"
+                      },
+                      "st_resposta": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "servidores": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "co_adesao_servidor": {
+                  "type": "integer"
+                },
+                "co_adesao": {
+                  "type": "integer"
+                },
+                "nu_cpf": {
+                  "type": "string"
+                },
+                "no_servidor": {
+                  "type": "string"
+                },
+                "ds_email": {
+                  "type": "string"
+                },
+                "nu_telefone": {
+                  "type": "string"
+                },
+                "no_funcao": {
+                  "type": "string"
+                },
+                "no_lotacao": {
+                  "type": "string"
+                },
+                "st_coordenador": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "jwt": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

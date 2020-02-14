@@ -1,0 +1,13 @@
+{
+    "name": "Administrativo",
+    "alias": "administrativo",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Administrativo\\Providers\\AdministrativoServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Inscricao",
+  "alias": "inscricao",
+  "description": "",
+  "keywords": [],
+  "order": 0,
+  "providers": [
+    "Modules\\Inscricao\\Providers\\InscricaoServiceProvider"
+  ],
+  "aliases": {},
+  "files": [],
+  "requires": []
+}

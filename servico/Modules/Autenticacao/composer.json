@@ -1,0 +1,22 @@
+{
+  "name": "sisrav/autenticacao",
+  "description": "",
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Modules\\Autenticacao\\Providers\\AutenticacaoServiceProvider"
+      ],
+      "aliases": {
+      }
+    }
+  },
+  "require": {
+    "tymon/jwt-auth": "1.0.0.rc.5",
+    "bensampo/laravel-enum": "^1.21"
+  },
+  "autoload": {
+    "psr-4": {
+      "Modules\\Autenticacao\\": ""
+    }
+  }
+}
