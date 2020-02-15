@@ -26,6 +26,21 @@ services:
       - php-teste-grancursos
     networks:
       - network-grancursos
+  vue-teste-grancursos:
+    image: node:10
+    container_name: vue-teste-grancursos
+    user: "node"
+    working_dir: /home/node/app
+    volumes:
+      - ./cliente/vue:/home/node/app
+    command:
+      sh -c 'npm i && npm run serve'
+    ports:
+      - "8088:8080"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - network-grancursos
   frontend-maiscidadao:
     container_name: frontend-maiscidadao
     environment:
@@ -41,21 +56,6 @@ services:
       - "4022:80"
     depends_on:
       - php-teste-grancursos
-    networks:
-      - network-grancursos
-  vue-teste-grancursos:
-    image: node:10
-    container_name: vue-teste-grancursos
-    user: "node"
-    working_dir: /home/node/app
-    volumes:
-      - ./cliente/vue:/home/node/app
-    command:
-      sh -c 'npm i && npm run serve'
-    ports:
-      - "8088:8080"
-    environment:
-      - NODE_ENV=development
     networks:
       - network-grancursos
   mysql-teste-grancursos:
