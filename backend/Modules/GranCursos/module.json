@@ -1,0 +1,13 @@
+{
+    "name": "GranCursos",
+    "alias": "grancursos",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\GranCursos\\Providers\\GranCursosServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

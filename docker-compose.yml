@@ -4,10 +4,10 @@ services:
     container_name: php-teste-grancursos
     image: php:7.3.6-fpm
     build:
-      context: servico
+      context: backend
       dockerfile: Dockerfile
     volumes:
-      - ./servico/:/var/www/html
+      - ./backend/:/var/www/html
       - ./docker/php/config/extensions.ini:/usr/local/etc/php/conf.d/extensions.ini
     ports:
       - 80:80
@@ -18,7 +18,7 @@ services:
     container_name: nginx-webserver-teste-grancursos
     image: "nginx:1.13.8-alpine"
     volumes:
-      - ./servico:/var/www/html/
+      - ./backend:/var/www/html/
       - ./docker/nginx/backend/default.conf:/etc/nginx/conf.d/default.conf
     ports:
       - "8022:80"
@@ -32,7 +32,7 @@ services:
     user: "node"
     working_dir: /home/node/app
     volumes:
-      - ./cliente/vue:/home/node/app
+      - ./frontend:/home/node/app
     command:
       sh -c 'npm i && npm run serve'
     ports:
@@ -41,13 +41,13 @@ services:
       - NODE_ENV=development
     networks:
       - network-grancursos
-  frontend-maiscidadao:
-    container_name: frontend-maiscidadao
+  frontend-teste-grancursos:
+    container_name: frontend-teste-grancursos
     environment:
       - ENDERECO_API=nginx-webserver-teste-grancursos
-    image: "grancursos-teste/cliente"
+    image: "grancursos-teste/frontend"
     build:
-      context: cliente/vue
+      context: frontend
       dockerfile: Dockerfile
       args:
         - ENDERECO_API=nginx-webserver-teste-grancursos

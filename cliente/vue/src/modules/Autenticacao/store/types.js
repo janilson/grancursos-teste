@@ -1,1 +1,0 @@
-export const DELETE_USUARIO = 'DELETE_USUARIO';
