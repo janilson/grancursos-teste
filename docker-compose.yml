@@ -58,12 +58,35 @@ services:
       - php-teste-grancursos
     networks:
       - network-grancursos
-  mysql-teste-grancursos:
-    container_name: mysql-teste-grancursos
-    image: mysql:5.7
-#    build:
-#      context: docker
-#      dockerfile: mysql/Dockerfile
+    #  mysql-teste-grancursos:
+    #    container_name: mysql-teste-grancursos
+    #    image: mysql:5.7
+    #    #    build:
+    #    #      context: docker
+    #    #      dockerfile: mysql/Dockerfile
+    #    restart: always
+    #    environment:
+    #      MYSQL_DATABASE: 'db_grancursos'
+    #      # So you don't have to use root, but you can if you like
+    #      MYSQL_USER: 'user_grancursos'
+    #      # You can use whatever password you like
+    #      MYSQL_PASSWORD: 'pass_grancursos'
+    #      # Password for root access
+    #      MYSQL_ROOT_PASSWORD: 'pass_grancursos'
+    #    ports:
+    #      # <Port exposed> : < MySQL Port running inside container>
+    #      - "3306:3306"
+    #    volumes:
+    #      - ./database/docker-data/mysql:/var/lib/mysql
+    #      - ./database/:/docker-entrypoint-initdb.d/
+    #    networks:
+    #      - network-grancursos
+  maria-teste-grancursos:
+    container_name: maria-teste-grancursos
+    image: mariadb
+    #    build:
+    #      context: docker
+    #      dockerfile: mysql/Dockerfile
     restart: always
     environment:
       MYSQL_DATABASE: 'db_grancursos'
@@ -77,7 +100,7 @@ services:
       # <Port exposed> : < MySQL Port running inside container>
       - "3306:3306"
     volumes:
-      - ./database/docker-data/mysql:/var/lib/mysql
+      - ./database/docker-data/mariadb:/var/lib/mysql
       - ./database/:/docker-entrypoint-initdb.d/
     networks:
       - network-grancursos
