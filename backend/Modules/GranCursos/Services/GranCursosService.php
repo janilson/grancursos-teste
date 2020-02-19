@@ -3,6 +3,9 @@
 namespace Modules\GranCursos\Services;
 
 use Modules\GranCursos\Entities\Assunto;
+use Modules\GranCursos\Entities\Banca;
+use Modules\GranCursos\Entities\Orgao;
+use Modules\GranCursos\Entities\Questao;
 use Modules\GranCursos\Filters\AssuntoFilter;
 use Nwidart\Modules\Collection;
 
@@ -64,6 +67,9 @@ class GranCursosService
                 'id_assunto_pai' => $assunto['id_assunto_pai'],
                 'nu_nivel' => $assunto['nu_nivel'],
                 'ds_order' => $assunto['ds_order'],
+                'bancas' => Banca::whereIn('id_banca', explode(',', $assunto['id_banca_array']))->get(),
+                'orgaos' => Orgao::whereIn('id_orgao', explode(',', $assunto['id_orgao_array']))->get(),
+                'questoes' => Questao::whereIn('id_questao', explode(',', $assunto['id_questao_array']))->get(),
                 'nu_total_questoes' => $assunto['nu_total_questoes'],
             ] : null;
     }

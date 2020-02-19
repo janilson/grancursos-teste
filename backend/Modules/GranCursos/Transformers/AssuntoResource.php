@@ -19,6 +19,9 @@ class AssuntoResource extends Resource
             'no_assunto' => $this['no_assunto'],
             'id_assunto_pai' => $this['id_assunto_pai'],
             'nu_total_questoes' => $this['nu_total_questoes'],
+            'bancas' => BancaResource::collection($this['bancas']),
+            'orgaos' => OrgaoResource::collection($this['orgaos']),
+            'questoes' => QuestaoResource::collection($this['questoes']),
         ];
 
         $filhos = $this['filhos'] ?? [];

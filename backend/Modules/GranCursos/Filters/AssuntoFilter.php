@@ -4,7 +4,6 @@ namespace Modules\GranCursos\Filters;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
-use Illuminate\Support\Facades\DB;
 use Modules\GranCursos\Entities\Assunto;
 use Thalfm\LaravelEloquentFilter\Filters\SimpleQueryFilter;
 
@@ -14,8 +13,6 @@ use Thalfm\LaravelEloquentFilter\Filters\SimpleQueryFilter;
  */
 class AssuntoFilter extends SimpleQueryFilter
 {
-//    protected $simpleFilters = ['id_assunto'];
-
     /**
      * @param $query
      * @return Builder
@@ -50,6 +47,10 @@ class AssuntoFilter extends SimpleQueryFilter
                 'ra.id_assunto_pai',
                 'ra.nu_nivel',
                 'ra.ds_order',
+                'ra.ds_order',
+                new Expression('GROUP_CONCAT(DISTINCT tb_banca.id_banca) AS id_banca_array'),
+                new Expression('GROUP_CONCAT(DISTINCT tb_orgao.id_orgao) AS id_orgao_array'),
+                new Expression('GROUP_CONCAT(DISTINCT tb_questao.id_questao) AS id_questao_array'),
                 new Expression('COUNT(tb_questao.id_questao) AS nu_total_questoes')
             ])
             ->from('ra')

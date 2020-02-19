@@ -5,8 +5,12 @@ namespace Modules\GranCursos\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\GranCursos\Entities\Banca;
+use Modules\GranCursos\Entities\Orgao;
 use Modules\GranCursos\Services\GranCursosService;
 use Modules\GranCursos\Transformers\AssuntoResource;
+use Modules\GranCursos\Transformers\BancaResource;
+use Modules\GranCursos\Transformers\OrgaoResource;
 
 class ApiGranCursosController extends Controller
 {
@@ -39,7 +43,7 @@ class ApiGranCursosController extends Controller
      */
     public function apiBancas()
     {
-        dd("aquie");
+        return BancaResource::collection(Banca::all());
     }
 
     /**
@@ -48,6 +52,6 @@ class ApiGranCursosController extends Controller
      */
     public function apiOrgaos()
     {
-        dd("aquie");
+        return OrgaoResource::collection(Orgao::all());
     }
 }
