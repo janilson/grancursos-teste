@@ -4,10 +4,12 @@ namespace Modules\GranCursos\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Thalfm\LaravelEloquentFilter\Traits\Filterable;
+use Staudenmeir\LaravelCte\Eloquent\QueriesExpressions;
 
 class Assunto extends Model
 {
     use Filterable;
+    use QueriesExpressions;
 
     public $timestamps = false;
 
