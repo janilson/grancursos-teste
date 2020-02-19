@@ -3,7 +3,6 @@
 namespace Modules\GranCursos\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
 class GranCursosDatabaseSeeder extends Seeder
 {
@@ -14,8 +13,12 @@ class GranCursosDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
-
-        // $this->call("OthersTableSeeder");
+        $this->call(
+            [
+                AssuntoSeedTableSeeder::class,
+                BancaSeedTableSeeder::class,
+                OrgaoSeedTableSeeder::class,
+                QuestaoSeedTableSeeder::class
+            ]);
     }
 }

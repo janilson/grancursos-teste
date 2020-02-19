@@ -11,6 +11,3 @@
 |
 */
 
-Route::prefix('grancursos')->group(function() {
-    Route::get('/', 'GranCursosController@index');
-});

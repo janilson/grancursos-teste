@@ -16,8 +16,7 @@ class Questao extends Migration
         Schema::create('tb_questao', function (Blueprint $table) {
             $table->bigIncrements('id_questao');
 
-            $table->string('no_questao', 100)
-                ->unique();
+            $table->string('no_questao', 100);
 
             $table->unsignedBigInteger('id_assunto', false);
 
@@ -36,6 +35,8 @@ class Questao extends Migration
             $table->foreign('id_orgao', 'FK_ORGAO')
                 ->references('id_orgao')
                 ->on('tb_orgao');
+
+            $table->unique(['id_assunto', 'id_banca', 'id_orgao', 'no_questao']);
         });
     }
 
