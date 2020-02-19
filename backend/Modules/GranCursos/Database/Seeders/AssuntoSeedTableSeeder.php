@@ -17,14 +17,14 @@ class AssuntoSeedTableSeeder extends Seeder
         Assunto::query()->delete();
 
         // Assunto Pai
-        factory(Assunto::class, 10)->create();
+        factory(Assunto::class, 5)->create();
 
         // Assunto Filhos
         Assunto::select()
-            ->limit(10)
+            ->whereNull('id_assunto_pai')
             ->get()
             ->each(function (Assunto $assunto) {
-                factory(Assunto::class, 10)->make([
+                factory(Assunto::class, rand(2, 5))->make([
                     'id_assunto_pai' => $assunto->id_assunto
                 ])->each(function (Assunto $assunto) {
                     $assunto->save();
@@ -37,7 +37,7 @@ class AssuntoSeedTableSeeder extends Seeder
             ->limit(10)
             ->get()
             ->each(function (Assunto $assunto) {
-                factory(Assunto::class, 10)->make([
+                factory(Assunto::class, rand(1, 5))->make([
                     'id_assunto_pai' => $assunto->id_assunto
                 ])->each(function (Assunto $assunto) {
                     $assunto->save();

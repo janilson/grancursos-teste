@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 Route::group(['middleware' => ['api']], function () {
-    Route::apiResource('/', 'ApiGranCursosController')
-        ->only('index');
+    Route::get('/', 'ApiGranCursosController@apiAssuntos');
+
+    Route::get('assunto', 'ApiGranCursosController@apiAssuntos');
+
+    Route::get('banca', 'ApiGranCursosController@apiBancas');
+
+    Route::get('orgao', 'ApiGranCursosController@apiOrgaos');
 });

@@ -3,9 +3,12 @@
 namespace Modules\GranCursos\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Thalfm\LaravelEloquentFilter\Traits\Filterable;
 
 class Assunto extends Model
 {
+    use Filterable;
+
     public $timestamps = false;
 
     protected $primaryKey = 'id_assunto';
@@ -22,7 +25,7 @@ class Assunto extends Model
      */
     public function questoes()
     {
-        return $this->hasMany('Questao',
+        return $this->hasMany(Questao::class,
             'id_assunto',
             'id_assunto');
     }
@@ -32,9 +35,9 @@ class Assunto extends Model
      */
     public function filhos()
     {
-        return $this->hasMany('Assunto',
-            'id_assunto',
-            'id_assunto_pai');
+        return $this->hasMany(Assunto::class,
+            'id_assunto_pai',
+            'id_assunto');
     }
 
     /**
@@ -42,8 +45,8 @@ class Assunto extends Model
      */
     public function pai()
     {
-        return $this->hasOne('Assunto',
-            'id_assunto_pai',
-            'id_assunto');
+        return $this->hasOne(Assunto::class,
+            'id_assunto',
+            'id_assunto_pai');
     }
 }

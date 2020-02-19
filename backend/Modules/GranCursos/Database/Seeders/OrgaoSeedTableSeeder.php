@@ -17,6 +17,6 @@ class OrgaoSeedTableSeeder extends Seeder
     {
         Orgao::query()->delete();
 
-        factory(Orgao::class, 10)->create();
+        factory(Orgao::class, rand(2, 6))->create();
     }
 }

@@ -16,6 +16,6 @@ class BancaSeedTableSeeder extends Seeder
     {
         Banca::query()->delete();
 
-        factory(Banca::class, 10)->create();
+        factory(Banca::class, rand(3, 6))->create();
     }
 }

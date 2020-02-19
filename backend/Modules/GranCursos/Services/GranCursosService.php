@@ -2,8 +2,8 @@
 
 namespace Modules\GranCursos\Services;
 
-use Modules\GranCursos\Entities\Questao;
-use Modules\GranCursos\Filters\QuestaoFilter;
+use Modules\GranCursos\Entities\Assunto;
+use Modules\GranCursos\Filters\AssuntoFilter;
 
 /**
  * Class GranCursosService
@@ -14,9 +14,9 @@ class GranCursosService
     /**
      * @return mixed
      */
-    public function obterQuestoes()
+    public function obterAssuntos()
     {
-        $questoes = Questao::filtered(\App::make(QuestaoFilter::class))->get();
+        $questoes = Assunto::filtered(\App::make(AssuntoFilter::class))->get();
 
         return $questoes;
     }

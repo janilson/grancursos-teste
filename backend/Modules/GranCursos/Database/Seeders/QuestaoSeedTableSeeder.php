@@ -42,7 +42,7 @@ class QuestaoSeedTableSeeder extends Seeder
         foreach ($arAssunto as $id_assunto) {
             foreach ($arBanca as $id_banca) {
                 foreach ($arOrgao as $id_orgao) {
-                    factory(Questao::class, 3)->make([
+                    factory(Questao::class, rand(1, 3))->make([
                         'id_assunto' => $id_assunto,
                         'id_banca' => $id_banca,
                         'id_orgao' => $id_orgao,
@@ -66,7 +66,7 @@ class QuestaoSeedTableSeeder extends Seeder
         foreach ($arAssunto as $id_assunto) {
             foreach ($arBanca as $id_banca) {
                 foreach ($arOrgao as $id_orgao) {
-                    factory(Questao::class, 2)->make([
+                    factory(Questao::class, rand(1, 2))->make([
                         'id_assunto' => $id_assunto,
                         'id_banca' => $id_banca,
                         'id_orgao' => $id_orgao,

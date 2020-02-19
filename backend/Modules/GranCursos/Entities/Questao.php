@@ -3,12 +3,9 @@
 namespace Modules\GranCursos\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Thalfm\LaravelEloquentFilter\Traits\Filterable;
 
 class Questao extends Model
 {
-    use Filterable;
-
     public $timestamps = false;
 
     protected $primaryKey = 'id_questao';
