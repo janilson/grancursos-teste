@@ -19,3 +19,20 @@ Feito para o teste para Desenvolvedor Full Stack Senior
 * RN3: Preciso de muitas questões para poder gerar programas de estudos diversos.
  
 Ao finalizar, responda o campo abaixo com o link do código. 
+
+
+
+### Docker
+
+- Ir na pasta da aplicação executar o comando:
+
+        docker-compose up --force-recreate -d
+
+### Aplicação
+ - Frontend => http://localhost:8088
+ - Backend => http://localhost:8022
+ 
+##### Ir no container 'docker exec -it php-teste-grancursos bash'
+    - Executar o comando 'composer install' ou 'composer update'
+    - Depois, Executar o comando 'php artisan migrate --seed' 
+        
