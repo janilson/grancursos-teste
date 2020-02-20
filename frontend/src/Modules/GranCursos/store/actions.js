@@ -1,6 +1,7 @@
 import * as granCursosService from '../service/grancursos';
 
-export const listarAssuntos = async (params) => granCursosService
+// eslint-disable-next-line no-unused-vars
+export const listarAssuntos = async ({commit, dispatch}, params) => granCursosService
     .listarAssuntos(params)
     .then((response) => {
         return response.data.data;
@@ -8,7 +9,8 @@ export const listarAssuntos = async (params) => granCursosService
         throw new TypeError(error, 'listarAssuntos', 10);
     });
 
-export const listarBancas = async (params) => granCursosService
+// eslint-disable-next-line no-unused-vars
+export const listarBancas = async ({commit, dispatch}, params) => granCursosService
     .listarBancas(params)
     .then((response) => {
         return response.data.data;
@@ -16,7 +18,8 @@ export const listarBancas = async (params) => granCursosService
         throw new TypeError(error, 'listarBancas', 10);
     });
 
-export const listarOrgaos = async (params) => granCursosService
+// eslint-disable-next-line no-unused-vars
+export const listarOrgaos = async ({commit, dispatch}, params) => granCursosService
     .listarOrgaos(params)
     .then((response) => {
         return response.data.data;

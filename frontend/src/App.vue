@@ -25,27 +25,27 @@
         />
       </div>
 
-      <v-spacer></v-spacer>
+      <v-spacer />
     </v-app-bar>
 
     <v-content>
-      <assuntos></assuntos>
+      <assuntos />
     </v-content>
   </v-app>
 </template>
 
 <script>
-import Assuntos from './Modules/GranCursos/Assuntos';
+    import Assuntos from './Modules/GranCursos/Assuntos';
 
-export default {
-  name: 'App',
+    export default {
+        name: 'App',
 
-  components: {
-    Assuntos
-  },
+        components: {
+            Assuntos
+        },
 
-  data: () => ({
-    //
-  }),
-};
+        data: () => ({
+            //
+        }),
+    };
 </script>
